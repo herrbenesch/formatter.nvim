@@ -40,10 +40,21 @@ function M.black()
 end
 
 function M.ruff()
+  local util = require "formatter.util"
+
   return {
-    exe = "ruff",
-    args = { "--fix", "-e", "-n", "--stdin-filename", "$FILENAME", "-" },
-    stdin = true,
+    {
+      exe = "ruff",
+      args = {
+        "--fix",
+        "-e",
+        "-n",
+        "--stdin-filename",
+        util.escape_path(util.get_current_buffer_file_path()),
+        "-",
+      },
+      stdin = true,
+    },
   }
 end
 
